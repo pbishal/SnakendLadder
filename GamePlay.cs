@@ -13,12 +13,13 @@ namespace SnakeLadder
         const int WINNING_POSITION = 100;
         public void Play()
         {
-            int player = 0;
+            int player = 0, dieCount = 0;
             while (player < WINNING_POSITION)
             {
                 Random random = new Random();
                 int option = random.Next(0, 3);
                 int dieValue = random.Next(1, 7);
+                dieCount++;
                 switch (option)
                 {
                     case NO_PLAY:
@@ -45,6 +46,7 @@ namespace SnakeLadder
                         break;
                 }
             }
+            Console.WriteLine("Total number of times the die was rolled is : " + dieCount);
         }
     }
 }

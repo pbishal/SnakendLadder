@@ -13,8 +13,10 @@ namespace SnakeLadder
         const int WINNING_POSITION = 100;
         public void Play()
         {
-            int player = 0, dieCount = 0;
-            while (player < WINNING_POSITION)
+            int[] player = new int[2] { 0, 0 };
+            int dieCount = 0;
+            int chance = 0;
+            while (player[chance] < WINNING_POSITION)
             {
                 Random random = new Random();
                 int option = random.Next(0, 3);
@@ -26,27 +28,35 @@ namespace SnakeLadder
                         Console.WriteLine("No Play, Pass the chance");
                         break;
                     case LADDER:
-                        player += dieValue;
-                        if (player > WINNING_POSITION)
+                        if (player[chance] + dieValue <= WINNING_POSITION)
                         {
-                            Console.WriteLine("Invalid position");
-                            player -= dieValue;
+                            player[chance] += dieValue;
                         }
-                        Console.WriteLine("You got Ladder and the player position is: " + player);
+                        Console.WriteLine("You got Ladder and the player = " + chance + "->" + " position " + " is " + player[chance]);
                         break;
                     case SNAKE:
-                        player -= dieValue;
-                        if (player < START_POSITION)
+                        if (player[chance] - dieValue < START_POSITION)
                         {
-                            player = START_POSITION;
+                            player[chance] = START_POSITION;
                         }
-                        Console.WriteLine("You gotSnake and the player position is " + player);
+                        else
+                        {
+                            player[chance] -= dieValue;
+                        }
+                        Console.WriteLine("You gotSnake and the player = " + chance + "-> position " + " is " + player[chance]);
                         break;
                     default:
                         break;
                 }
+                if (option == NO_PLAY || option == SNAKE)
+                {
+                    if (chance == 0)
+                        chance = 1;
+                    else
+                        chance = 0;
+                }
             }
-            Console.WriteLine("Total number of times the die was rolled is : " + dieCount);
+            Console.WriteLine("Total number of times die was rolled : " + dieCount);
         }
     }
 }

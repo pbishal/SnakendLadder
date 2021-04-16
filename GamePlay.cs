@@ -26,7 +26,12 @@ namespace SnakeLadder
                         break;
                     case LADDER:
                         player += dieValue;
-                        Console.WriteLine("You got Ladder and the player position is " + player);
+                        if (player > WINNING_POSITION)
+                        {
+                            Console.WriteLine("Invalid position");
+                            player -= dieValue;
+                        }
+                        Console.WriteLine("You got Ladder and the player position is: " + player);
                         break;
                     case SNAKE:
                         player -= dieValue;
@@ -34,11 +39,9 @@ namespace SnakeLadder
                         {
                             player = START_POSITION;
                         }
-                        Console.WriteLine("You gotSnake and the player position is: " + player);
+                        Console.WriteLine("You gotSnake and the player position is " + player);
                         break;
-
                     default:
-
                         break;
                 }
             }
